@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button>Create A New Playlist</button>
-    <button v-on:click="logout">Logout</button>
+    <v-btn large>Create A New Playlist</v-btn>
+    <v-btn v-on:click="logout">Logout</v-btn>
   </div>
 </template>
 
