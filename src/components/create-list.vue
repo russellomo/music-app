@@ -84,7 +84,7 @@
         }
         firebase.database().ref('playlists').push(meetup)
           .then((data) => {
-            const key = data.key
+            
           })
           .catch((error) => {
             console.log(error)
