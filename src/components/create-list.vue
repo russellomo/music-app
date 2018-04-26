@@ -75,7 +75,7 @@
     },
     methods: {
       createList () {
-        let meetup = {
+        let list = {
           title: this.title,
           location: this.location,
           description: this.description,
@@ -84,7 +84,7 @@
         }
         firebase.database().ref('playlists').push(meetup)
           .then((data) => {
-            
+
           })
           .catch((error) => {
             console.log(error)
