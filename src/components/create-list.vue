@@ -82,7 +82,7 @@
           date: this.date,
           creatorId: firebase.auth().currentUser.uid,
         }
-        firebase.database().ref('playlists').push(meetup)
+        firebase.database().ref('playlists').push(list)
           .then((data) => {
 
           })
