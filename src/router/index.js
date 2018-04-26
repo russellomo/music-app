@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Hello from '@/components/HelloWorld'
+import Home from '@/components/home'
 import Login from '@/components/login'
 import SignUp from '@/components/sign-up'
 import firebase from 'firebase'
@@ -29,9 +29,9 @@ let router = new Router({
       component: SignUp
     },
     {
-      path: '/hello',
-      name: 'Hello',
-      component: Hello,
+      path: '/home',
+      name: 'Home',
+      component: Home,
       meta: {
         requiresAuth: true
       }
