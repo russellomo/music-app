@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from '@/components/home'
 import Login from '@/components/login'
 import SignUp from '@/components/sign-up'
+import CreateList from '@/components/create-list'
 import firebase from 'firebase'
 
 Vue.use(Router);
@@ -32,6 +33,14 @@ let router = new Router({
       path: '/home',
       name: 'Home',
       component: Home,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/create-list',
+      name: 'Create List',
+      component: CreateList,
       meta: {
         requiresAuth: true
       }

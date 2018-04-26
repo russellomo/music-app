@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <v-btn large>Create A New Playlist</v-btn>
+    <v-btn v-on:click="goToCreate" large>Create A New Playlist</v-btn>
     <v-btn v-on:click="logout">Logout</v-btn>
   </div>
 </template>
@@ -20,7 +20,11 @@
         firebase.auth().signOut().then(() => {
           this.$router.replace('login')
         })
+      },
+      goToCreate: function () {
+        this.$router.replace('create-list');
       }
+
     },
     mounted() {
       this.msg = firebase.auth().currentUser.uid;
