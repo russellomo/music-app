@@ -1,14 +1,15 @@
 <template>
 <div class="hello">
   <h1>{{ msg }}</h1>
-  <v-btn v-on:click="goToCreate" large>Create A New Playlist</v-btn>
-  <v-btn v-on:click="logout">Logout</v-btn>
+  <v-btn v-on:click="goToCreate" large color="green">Create A New Playlist</v-btn>
+  <v-btn v-on:click="logout" large>Logout</v-btn>
 
-  <v-layout row>
+  <v-layout row mt-4>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-list two-line subheader>
           <v-subheader>Upcoming Gigs</v-subheader>
+          <v-divider color="#9E9E9E"></v-divider>
           <v-list-tile v-for="gig in gigs" :key="gig.title" @click="">
             <v-list-tile-content>
               <v-list-tile-title>{{ gig.title }}</v-list-tile-title>
