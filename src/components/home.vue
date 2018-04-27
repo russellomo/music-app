@@ -1,51 +1,85 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <v-btn v-on:click="goToCreate" large>Create A New Playlist</v-btn>
-    <v-btn v-on:click="logout">Logout</v-btn>
-  </div>
+<div class="hello">
+  <h1>{{ msg }}</h1>
+  <v-btn v-on:click="goToCreate" large>Create A New Playlist</v-btn>
+  <v-btn v-on:click="logout">Logout</v-btn>
+
+  <v-layout row>
+    <v-flex xs12 sm6 offset-sm3>
+      <v-card>
+        <v-list two-line subheader>
+          <v-subheader>Upcoming Gigs</v-subheader>
+          <v-list-tile v-for="gig in gigs" :key="gig.title" @click="">
+            <v-list-tile-content>
+              <v-list-tile-title>{{ gig.title }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ gig.date }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-card>
+    </v-flex>
+  </v-layout>
+</div>
 </template>
 
 <script>
-  import firebase from 'firebase';
-  export default {
-    name: 'home',
-    data () {
-      return {
-        msg: 'Welcome to Your Vue.js App'
-      }
-    },
-    methods: {
-      logout: function() {
-        firebase.auth().signOut().then(() => {
-          this.$router.replace('login')
-        })
+import firebase from 'firebase';
+export default {
+  name: 'home',
+  data() {
+    return {
+      msg: 'Welcome to Your Vue.js App',
+      gigs: [],
+      gig: {
+        title: '',
+        date: ''
       },
-      goToCreate: function () {
-        this.$router.replace('create-list');
-      }
-
-    },
-    mounted() {
-      this.msg = firebase.auth().currentUser.uid;
     }
+  },
+  methods: {
+    logout: function() {
+      firebase.auth().signOut().then(() => {
+        this.$router.replace('login')
+      })
+    },
+    goToCreate: function() {
+      this.$router.replace('create-list');
+    }
+  },
+  mounted() {
+    this.msg = firebase.auth().currentUser.uid;
+
+    let vm = this;
+    firebase.database().ref('playlists').orderByChild('creatorId').equalTo(this.msg).on("child_added", function(snapshot) {
+      vm.gig = {
+        title: snapshot.val().title,
+        date: snapshot.val().date
+      }
+      vm.gigs.push(vm.gig);
+    })
+
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h1, h2 {
-    font-weight: normal;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: #42b983;
-  }
+h1,
+h2 {
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
 </style>

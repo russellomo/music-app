@@ -37,7 +37,7 @@
                   <v-date-picker v-model="date" color="green lighten-1" landscape></v-date-picker>
                 </v-flex>
               </v-layout>
-              <v-btn color="blue" @click.native="e1 = 2">Continue</v-btn>
+              <v-btn color="green lighten-1" @click.native="e1 = 2">Continue</v-btn>
             </form>
 
           </v-flex>
