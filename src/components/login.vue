@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <h3>Welcome to 3nd</h3>
+    <h3>Welcome to SoundMind</h3>
     <input type="text" v-model="email" placeholder="Email"><br>
     <input type="password" v-model="password" placeholder="Password"><br>
     <v-btn v-on:click="signIn">Sign In</v-btn>
