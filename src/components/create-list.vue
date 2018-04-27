@@ -13,6 +13,15 @@
           @click="createList()">Create Playlist</v-btn>
       </v-flex>
     </v-layout>
+    <v-stepper v-model="e1">
+      <v-stepper-header>
+        <v-stepper-step step="1" :complete="e1 > 1">Set up Gig Info</v-stepper-step>
+        <v-divider></v-divider>
+        <v-stepper-step step="2" :complete="e1 > 2">Create Song list</v-stepper-step>
+
+      </v-stepper-header>
+      <v-stepper-items>
+        <v-stepper-content step="1">
     <v-layout row>
       <v-flex xs12>
         <form>
@@ -51,22 +60,63 @@
               <v-date-picker v-model="date" color="green lighten-1" landscape></v-date-picker>
             </v-flex>
           </v-layout>
+          <v-btn color="blue" @click.native="e1 = 2">Continue</v-btn>
         </form>
 
       </v-flex>
-
-
     </v-layout>
+        </v-stepper-content>
+
+        <v-stepper-content step="2">
+
     <v-layout row>
       <v-flex xs12>
         <form>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-text-field
+                name="song-title"
+                label="Song Title"
+                id="song-title"
+                v-model="listItem.songName"
+                required></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-text-field
+                name="youtube"
+                label="Youtube Link"
+                id="youtube"
+                v-model="listItem.youtube"
+                ></v-text-field>
+            </v-flex>
+
+            <v-btn color="green" @click="addSong()" fab large dark><v-icon color="white">add</v-icon></v-btn>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-expansion-panel>
+                <v-expansion-panel-content v-for="(item,i) in this.list" :key="i">
+                  <div slot="header">{{ item.songName }}</div>
+                  <v-card>
+                      {{item.youtube}}
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-flex>
+          </v-layout>
 
         </form>
-
+        <v-btn color="gray" @click.native="e1 = 1"> <v-icon dark>arrow_back</v-icon>Back</v-btn>
       </v-flex>
 
 
     </v-layout>
+
+        </v-stepper-content>
+      </v-stepper-items>
+    </v-stepper>
   </v-container>
 </template>
 
@@ -75,6 +125,7 @@
   export default {
     data () {
       return {
+        e1: 0,
         title: '',
         location: '',
         imageUrl: '',
@@ -85,7 +136,7 @@
           youtube: '',
           notes: ''
         },
-        list: {},
+        list: [],
 
       }
     },
@@ -103,6 +154,7 @@
           description: this.description,
           date: this.date,
           creatorId: firebase.auth().currentUser.uid,
+          list: this.list
         }
         firebase.database().ref('playlists').push(list)
           .then((data) => {
@@ -112,6 +164,16 @@
             console.log(error)
           })
         // Reach out to firebase and store it
+        this.$router.replace('home');
+      },
+      addSong() {
+        this.list.push(this.listItem);
+        this.listItem = {
+          songName: '',
+          youtube: '',
+          notes: ''
+        };
+        console.log(this.list);
       }
     },
     watch : {
