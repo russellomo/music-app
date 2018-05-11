@@ -3,7 +3,7 @@
     <h1>{{ gig.title }}</h1>
     <h2>Location: {{gig.location}}</h2>
     <h4>Description: {{gig.description}}</h4>
-    <v-layout row>
+    <v-layout row mt-3>
       <v-flex xs12 sm6 offset-sm3>
         <v-date-picker v-model="gig.date" color="green lighten-1" landscape></v-date-picker>
       </v-flex>
@@ -17,7 +17,7 @@
             <v-divider color="#9E9E9E"></v-divider>
             <v-list v-for="item in list" :key="item.songName">
               <v-content>
-                <h3> Song Name: {{item.songName }}</h3>
+                <v-subheader> Song Name: {{item.songName }}</v-subheader>
                 Notes: {{ item.notes }}
                 <youtube :video-id="getYoutubeId(item.youtube)" player-width="640" player-height="360"></youtube>
 
