@@ -2,7 +2,7 @@
   <div class="body">
     <h1>{{ gig.title }}</h1>
     <h2>Location: {{gig.location}}</h2>
-
+    <h4>Description: {{gig.description}}</h4>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <v-date-picker v-model="gig.date" color="green lighten-1" landscape></v-date-picker>
