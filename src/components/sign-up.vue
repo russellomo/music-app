@@ -3,6 +3,7 @@
     <p>Create A New Account</p>
     <input type="text" v-model="email" placeholder="Email"><br>
     <input type="password" v-model="password" placeholder="Password"><br>
+    <input type="password" v-model="confirmPass" placeholder="Password"><br>
     <button v-on:click="signUp">Sign Up</button>
     <span>or go back to <router-link to="/login">login</router-link>.</span>
   </div>
@@ -15,20 +16,23 @@
     data: function() {
       return {
         email: '',
-        password: ''
+        password: '',
+        confirmPass: ''
       }
     },
     methods: {
       signUp: function() {
-        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-          (user) => {
-            alert('Account for ' + this.email + ' has been created.')
-            this.$router.replace('home')
-          },
-          (err) => {
-            alert('Oops. ' + err.message)
-          }
-        );
+        if(this.password === this.confirmPass) {
+          firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+            (user) => {
+              alert('Account for ' + this.email + ' has been created.')
+              this.$router.replace('home')
+            },
+            (err) => {
+              alert('Oops. ' + err.message)
+            }
+          );
+        }
       }
     }
   }
