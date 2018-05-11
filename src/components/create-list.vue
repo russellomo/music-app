@@ -55,13 +55,20 @@
                 </v-flex>
               </v-layout>
               <v-layout row>
-                <v-flex xs12 sm6 offset-sm3>
+                <v-flex xs12 offset-sm3>
                   <v-text-field name="youtube" label="Youtube Link" id="youtube" v-model="listItem.youtube"></v-text-field>
                 </v-flex>
 
-                <v-btn color="green" @click="addSong()" fab large dark>
-                  <v-icon color="white">add</v-icon>
-                </v-btn>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12 offset-sm3>
+                  <v-text-field name="Notes" label="Notes" id="notes" multi-line v-model="listItem.notes"></v-text-field>
+                </v-flex>
+                <v-flex>
+                  <v-btn color="green" @click="addSong()" fab large dark>
+                    <v-icon color="white">add</v-icon>
+                  </v-btn>
+                </v-flex>
               </v-layout>
               <v-layout row>
                 <v-flex xs12 sm6 offset-sm3>

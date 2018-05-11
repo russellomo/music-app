@@ -6,6 +6,8 @@ import router from './router';
 import firebase from 'firebase';
 import Vuetify from 'vuetify';
 import '../node_modules/vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+import VueYouTubeEmbed from 'vue-youtube-embed'
+Vue.use(VueYouTubeEmbed);
 Vue.use(Vuetify);
 
 Vue.config.productionTip = false;

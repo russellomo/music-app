@@ -5,6 +5,7 @@ import Home from '@/components/home'
 import Login from '@/components/login'
 import SignUp from '@/components/sign-up'
 import CreateList from '@/components/create-list'
+import ViewList from '@/components/view-list'
 import firebase from 'firebase'
 
 Vue.use(Router);
@@ -39,14 +40,22 @@ let router = new Router({
     },
     {
       path: '/create-list',
-      name: 'Create List',
+      name: 'CreateList',
       component: CreateList,
       meta: {
         requiresAuth: true
       }
-    }
+    },
+    { path: '/view-list/:id',
+      name: 'ViewList',
+      component: ViewList,
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
+    },
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
   let currentUser = firebase.auth().currentUser;

@@ -1,6 +1,6 @@
 <template>
 <div class="hello">
-  <h1>{{ msg }}</h1>
+  <h1>Welcome</h1>
   <v-btn v-on:click="goToCreate" large color="green">Create A New Playlist</v-btn>
   <v-btn v-on:click="logout" large>Logout</v-btn>
 
@@ -10,7 +10,7 @@
         <v-list two-line subheader>
           <v-subheader>Upcoming Gigs</v-subheader>
           <v-divider color="#9E9E9E"></v-divider>
-          <v-list-tile v-for="gig in gigs" :key="gig.title" @click="">
+          <v-list-tile v-for="gig in gigs" :key="gig.title" @click="viewList(gig.key)">
             <v-list-tile-content>
               <v-list-tile-title>{{ gig.title }}</v-list-tile-title>
               <v-list-tile-sub-title>{{ gig.date }}</v-list-tile-sub-title>
@@ -29,11 +29,12 @@ export default {
   name: 'home',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      user: '',
       gigs: [],
       gig: {
         title: '',
-        date: ''
+        date: '',
+        key: ''
       },
     }
   },
@@ -45,16 +46,22 @@ export default {
     },
     goToCreate: function() {
       this.$router.replace('create-list');
+    },
+    viewList: function(key) {
+      console.log('we in here');
+      this.$router.push({ name: 'ViewList', params: { id: key }});
     }
+
   },
   mounted() {
-    this.msg = firebase.auth().currentUser.uid;
+    this.user = firebase.auth().currentUser.uid;
 
     let vm = this;
-    firebase.database().ref('playlists').orderByChild('creatorId').equalTo(this.msg).on("child_added", function(snapshot) {
+    firebase.database().ref('playlists').orderByChild('creatorId').equalTo(this.user).on("child_added", function(snapshot) {
       vm.gig = {
         title: snapshot.val().title,
-        date: snapshot.val().date
+        date: snapshot.val().date,
+        key: snapshot.key
       }
       vm.gigs.push(vm.gig);
     })
